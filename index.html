@@ -56,10 +56,18 @@
         margin-left: 35px;
         float: left;
     }
+    .slide figure {
+        padding: 5px;
+        border: 1px solid #ddd;
+        margin-top: 20px;
+        background: var(--il-storm-lighter-4);
+    }
+    .slide figcaption {
+        font-family: 'Source Sans';
+        text-align: center;
+    }
     .slide img {
         width: 100%;
-        padding: 5px;
-        margin-top: 20px;
         border: 1px solid #ddd;
     }
     @media (max-width: 900px) {
@@ -146,6 +154,7 @@
                 <li><strong>By default, GA4 will set the cookie's domain as the top-level ".illinois.edu" domain instead of the subdomain for the site in question. Cookies set with the top-level .illinois.edu domain will be included in the <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">request headers</a> for requests made to subdomain sites (example.illinois.edu).</strong>
                     <ul>
                         <li>This cookie configuration differs from the previous version of Google Analytics, 'Universal Analytics (UA)'.</li>
+                        <li>In theory, cookie domains could automatically be set to the approriate subdomain if all .illinois.edu sites were using a single data stream, but, this is not feasible for a decentralized setup.</li>
                     </ul>
                 </li>
             </ul>
@@ -161,20 +170,43 @@
                 </ul>
             </div>
             <div class="col2">
-                <img src="images/bad-request-2.png" alt="Google Analytics 4 Example">
+                <figure>
+                    <a href="images/bad-request-2.png">
+                        <img src="images/bad-request-2.png" alt="screenshot of a 400 Bad Request error">
+                    </a>
+                    <figcaption>Example of a 400 Bad Request error in the browser</figcaption>
+                </figure>
             </div>
         </div>
 
         <div class="slide">
             <h2 id="slide4">Who Can This Affect?</h2>
-            <ul>
-                <li>No individual user or campus website is completely immune to this issue. If certain conditions are met, any user visiting any website on the illinois.edu domain <em>could</em> run into this problem.
-                    <ul>
-                        <li>Can happen on websites that aren't running Google Analytics</li>
-                    </ul>
-                </li>
-                <li>This is most likely to be encountered by users who visit a large number of campus websites and do not clear their browser's cookies on a regular basis.</li>
-            </ul>
+            <div class="col1">
+                <ul>
+                    <li>No individual user or campus website is completely immune to this issue. If certain conditions are met, any user visiting any website on the illinois.edu domain <em>could</em> run into this problem.
+                        <ul>
+                            <li>Can happen on websites that aren't running Google Analytics</li>
+                        </ul>
+                    </li>
+                    <li>This is most likely to be encountered by users who visit a large number of campus websites and do not clear their browser's cookies on a regular basis.</li>
+                </ul>
+            </div>
+            <div class="col2">
+                <figure>
+                    <a href="images/cookie-list.png">
+                        <img src="images/cookie-list-2.png" alt="screenshot of a list of _ga_ cookies in the browser's developer tools">
+                    </a>
+                    <figcaption>Example list of cookies in the browser's developer tools</figcaption>
+                </figure>
+        </div>
+
+        <div class="slide">
+            <h2 id="slide5">Possible Solutions</h2>
+            <ol>
+                <li>...</li>
+                <li>...</li>
+                <li>...</li>
+            </ol>
         </div>
 
     </div>
