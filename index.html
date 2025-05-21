@@ -40,6 +40,10 @@
         float: left;
         margin-bottom: 20px;
     }
+    .slide h2 {
+        margin-top: 0px;
+        padding-top: 20px;
+    }
     .slide li ul {
         margin-top: 10px;
     }
@@ -100,7 +104,7 @@
 
         <h1 class="sr-only">Optimizing Google Analytics Cookies at Illinois</h1>
 
-        <p style="position: relative; bottom: 20px;">This content was originally presented at the <a href="https://itproforum.illinois.edu/">IT Professionals Forum Spring 2025</a>. <em>Note to the presenter: a slide-like display can be started by adding <a href="?mode=present">?mode=present</a> to the end of the page URL. Set the browser to full screen, set the zoom between 175% and 200%, and use the up/down arrow keys to navigate through the slides.</em></p>
+        <p style="position: relative; bottom: 20px;">This content was originally presented at the <a href="https://itproforum.illinois.edu/">IT Professionals Forum Spring 2025</a>. <em>Note to the presenter: a slide-like display can be started by adding <a href="?mode=present">?mode=present</a> to the end of the page URL. Set the zoom between 175% and 200% and use the up/down arrow keys to navigate through the slides.</em></p>
 
         <ilw-accordion aria-labelledby="accordion-header">
             <ilw-accordion-panel>
@@ -131,13 +135,16 @@
         </div>
 
         <div class="slide">
-            <h2 id="slide1">Google Analytics 4 Cookies</h2>
+            <h2 id="slide2">Google Analytics 4 Cookies</h2>
             <ul>
                 <li>Google Analytics uses a <a href="https://en.wikipedia.org/wiki/HTTP_cookie">browser cookie</a> to establish analytics sessions and track user activity.
                     <ul>
                         <li>GA4 uses cookies with names like: <code>_ga_&lt;TAG-ID&gt;</code>, e.g. <code>_ga_YKXZBYWM4X</code></li>
-                        <li><strong>By default, GA4 will set the cookie's domain as the top-level ".illinois.edu" domain instead of the subdomain for the site in question.</strong></li>
-                        <li>Cookies set with the top-level .illinois.edu domain will be included in the <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">request headers</a> for requests made to subdomain sites (example.illinois.edu).</li>
+                        <li>Each cookie is usually between 50-100 bytes in size.</li>
+                    </ul>
+                </li>
+                <li><strong>By default, GA4 will set the cookie's domain as the top-level ".illinois.edu" domain instead of the subdomain for the site in question. Cookies set with the top-level .illinois.edu domain will be included in the <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">request headers</a> for requests made to subdomain sites (example.illinois.edu).</strong>
+                    <ul>
                         <li>This cookie configuration differs from the previous version of Google Analytics, 'Universal Analytics (UA)'.</li>
                     </ul>
                 </li>
@@ -145,13 +152,12 @@
         </div>
 
         <div class="slide">
-            <h2 id="slide1">Cookie Accumulation and Browser Errors</h2>
+            <h2 id="slide3">Cookie Accumulation and Browser Errors</h2>
             <div class="col1">
                 <ul>
                     <li>Over time, as a user visits more and more campus websites that use Google Analytics, the number of <code>_ga_ cookies</code> can accumulate in their browser.</li>
-                    <li>Each cookie is usually between 50-100 bytes in size.</li>
                     <li>Web servers like Apache and Nginx set a maximum allowable size for the request headers they are sent. The default is typically around 8000 bytes.</li>
-                    <li>If enough cookies accumulate in the browser (along with other information sent in request headers), the total size of the request headers can exceed the server's maximum allowable size and will result in a browser error.</li>
+                    <li>If enough cookies accumulate in the browser (along with other information sent in request headers), the total size of the request headers can exceed the server's maximum allowable size and will result in a browser error — usually HTTP status code 400 (Bad Request) or 431 (Request Header Fields Too Large).</li>
                 </ul>
             </div>
             <div class="col2">
@@ -160,7 +166,7 @@
         </div>
 
         <div class="slide">
-            <h2 id="slide2">Who Can This Affect?</h2>
+            <h2 id="slide4">Who Can This Affect?</h2>
             <ul>
                 <li>No individual user or campus website is completely immune to this issue. If certain conditions are met, any user visiting any website on the illinois.edu domain <em>could</em> run into this problem.
                     <ul>
@@ -197,10 +203,16 @@
             document.addEventListener('keydown', function (event) {
                 if (event.key === 'ArrowDown') {
                     event.preventDefault();
-                    var nextSlide = document.querySelector('.slide:not([style*="display: none"]) + .slide');
+                    var slideNumber = parseInt(window.location.hash.replace('#slide', '')) || 0;
+                    slideNumber++;
+                    var nextSlide = document.querySelector('#slide' + slideNumber);
                     if (nextSlide) {
                         nextSlide.scrollIntoView();
+                        window.history.pushState(null, null, '#slide' + slideNumber);
+                    } else {
+                        window.location.hash = '#slide1';
                     }
+
                 }
             });
 
@@ -208,9 +220,19 @@
             document.addEventListener('keydown', function (event) {
                 if (event.key === 'ArrowUp') {
                     event.preventDefault();
-                    var prevSlide = document.querySelector('.slide:not([style*="display: none"]) + .slide').previousElementSibling;
+                    var slideNumber = parseInt(window.location.hash.replace('#slide', '')) || 0;
+                    slideNumber--;
+                    var prevSlide = document.querySelector('#slide' + slideNumber);
                     if (prevSlide) {
                         prevSlide.scrollIntoView();
+                        window.history.pushState(null, null, '#slide' + slideNumber);
+                    } else {
+                        var lastSlide = document.querySelector('.slide:last-of-type');
+                        if (lastSlide) {
+                            lastSlide.scrollIntoView();
+                            window.history.pushState(null, null, '#slide' + (document.querySelectorAll('.slide').length));
+                        }
+
                     }
                 }
             });
