@@ -48,11 +48,14 @@
         margin-top: 10px;
     }
     .slide .col1 {
-        width: 50%;
+        width: 55%;
         float: left;
     }
+    .slide .col1 > ul {
+        margin-top: 0px;
+    }
     .slide .col2 {
-        width: calc(50% - 35px);
+        width: calc(45% - 35px);
         margin-left: 35px;
         float: left;
     }
@@ -126,20 +129,30 @@
         
         <div class="slide">
             <h2 id="slide1">Introduction</h2>
-            <ul>
-                <li>Topic: <strong>Optimizing Google Analytics Cookies at Illinois</strong>
-                    <ul>
-                        <li>Addressing 400-level browser errors seen by end users which can prevent website access; in part, caused by an accumulation of cookies used by Google Analytics 4 (GA4)</li>
-                    </ul>
-                </li>
-                <li>Presenter: <strong>Dan Dalpiaz</strong>
-                    <ul>
-                        <li>Web Developer in the University Library at the University of Illinois Urbana-Champaign</li>
-                        <li>Not an expert in Google Analytics itself, but...</li>
-                        <li>Have been tracking this particular issue for a while now</li>
-                    </ul>
-                </li>
-            </ul>
+            <div class="col1">
+                <ul>
+                    <li>Topic: <strong>Optimizing Google Analytics Cookies at Illinois</strong>
+                        <ul>
+                            <li>Addressing 400-level browser errors seen by end users which can prevent website access; in part, caused by an accumulation of cookies used by Google Analytics 4 (GA4)</li>
+                        </ul>
+                    </li>
+                    <li>Presenter: <strong>Dan Dalpiaz</strong>
+                        <ul>
+                            <li>Web Developer in the University Library at the University of Illinois Urbana-Champaign</li>
+                            <li>Not an expert in Google Analytics itself, but...</li>
+                            <li>Have been tracking this particular issue for a while now</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col2">
+                <figure>
+                    <a href="images/cookies.jpg">
+                        <img src="images/cookies.jpg" alt="baked cookies">
+                    </a>
+                    <figcaption>The other, sweeter kind of cookies</figcaption>
+                </figure>
+            </div>
         </div>
 
         <div class="slide">
@@ -171,10 +184,10 @@
             </div>
             <div class="col2">
                 <figure>
-                    <a href="images/bad-request-2.png">
-                        <img src="images/bad-request-2.png" alt="screenshot of a 400 Bad Request error">
+                    <a href="images/cookie-list-3.png">
+                        <img src="images/cookie-list-3.png" alt="screenshot of a list of _ga_ cookies in the browser's developer tools">
                     </a>
-                    <figcaption>Example of a 400 Bad Request error in the browser</figcaption>
+                    <figcaption>Example list of cookies in the browser's developer tools</figcaption>
                 </figure>
             </div>
         </div>
@@ -193,20 +206,61 @@
             </div>
             <div class="col2">
                 <figure>
-                    <a href="images/cookie-list.png">
-                        <img src="images/cookie-list-2.png" alt="screenshot of a list of _ga_ cookies in the browser's developer tools">
+                    <a href="images/bad-request-2.png">
+                        <img src="images/bad-request-2.png" alt="screenshot of a 400 Bad Request error">
                     </a>
-                    <figcaption>Example list of cookies in the browser's developer tools</figcaption>
+                    <figcaption>Example of a 400 Bad Request error in the browser</figcaption>
                 </figure>
+            </div>
         </div>
 
         <div class="slide">
             <h2 id="slide5">Possible Solutions</h2>
-            <ol>
+            <ul>
+                <li><strong>Short-Term</strong>
+                    <ul>
+                        <li>Help the user clear their browser's cookies</li>
+                        <li>Implement a cookie clean up script on your website</li>
+                        <li>Increase the maximum allowable size of request headers on the web server</li>
+                    </ul>
+                </li>
+                <li><strong>Long-Term</strong>
+                    <ul>
+                        <li>Manually set the GA cookie domain to the appropriate subdomain</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+        </div>
+
+        <div class="slide">
+            <h2 id="slide6">Solution: Clearing Browser Cookies</h2>
+            <div class="col1">
+                <ul>
+                    <li>If a user starts seeing 400/431 errors on one or more campus sites, you can assist them in clearing their browser's cookies. See <a href="https://answers.uillinois.edu/illinois/page.php?id=115654">Browsers, Clearing Cache and Cookies</a>.
+                        <ul>
+                            <li>This will clear all cookies, not just GA4 cookies. The user will need to reauthenticate with sites that use cookies to manage user sessions.</li>
+                            <li>Alternatively, if comfortable with the browser's developer tools, you can assist the user in manually deleting just the <code>_ga_</code> cookies on the .illinois.edu domain.</li>
+                        </ul>
+                    </li>
+                    <li>This is a short-term solution and may need to be repeated if the user continues to visit a large number of campus websites.</li>
+                </ul>
+            </div>
+            <div class="col2">
+                <figure>
+                    <a href="images/cookies-clear.png">
+                        <img src="images/cookies-clear.png" alt="screenshot of the Chrome browser's delete browsing data dialog">
+                    </a>
+                    <figcaption>Clearing cookies in the Chrome browser</figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 id="slide7">Solution: Cookie Clean Up Script</h2>
+            <ul>
                 <li>...</li>
-                <li>...</li>
-                <li>...</li>
-            </ol>
+            </ul>
         </div>
 
     </div>
