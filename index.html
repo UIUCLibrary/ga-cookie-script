@@ -39,6 +39,12 @@
         clear: both;
         float: left;
         margin-bottom: 20px;
+        min-width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .slide:not(:first-of-type) {
+        border-top: 1px solid #ccc;
     }
     .slide h2 {
         margin-top: 0px;
@@ -62,7 +68,7 @@
     .slide figure {
         padding: 5px;
         border: 1px solid #ddd;
-        margin-top: 20px;
+        margin-top: 5px;
         background: var(--il-storm-lighter-4);
     }
     .slide figcaption {
@@ -117,7 +123,7 @@
 
         <p style="position: relative; bottom: 20px;">This content was originally presented at the <a href="https://itproforum.illinois.edu/">IT Professionals Forum Spring 2025</a>. <em>Note to the presenter: a slide-like display can be started by adding <a href="?mode=present">?mode=present</a> to the end of the page URL. Set the zoom between 175% and 200% and use the up/down arrow keys to navigate through the slides.</em></p>
 
-        <ilw-accordion aria-labelledby="accordion-header">
+        <ilw-accordion>
             <ilw-accordion-panel>
                 <h2 slot="summary">Table of Contents</h3>
                 <ul>
@@ -230,7 +236,6 @@
                     </ul>
                 </li>
             </ul>
-            <ul>
         </div>
 
         <div class="slide">
@@ -273,6 +278,10 @@
     </ilw-footer>
 
     <script>
+        /* temp fix */
+        const buttons = document.querySelector('ilw-accordion').shadowRoot.querySelector('.buttons');
+        buttons.style.display = 'none';
+
         if (new URLSearchParams(window.location.search).get('mode') === 'present') {
             // set the slide height to the screen height
             document.querySelectorAll('.slide').forEach(function (slide) {
