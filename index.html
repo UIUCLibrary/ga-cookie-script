@@ -276,7 +276,7 @@
         </div>
 
         <div class="slide">
-            <h2 id="slide8">Solution: Increasing Max Request Header Size </h2>
+            <h2 id="slide8">Solution: Increasing Max Request Header Size</h2>
             <ul>
                 <li>IT Pros that have access to a site's web server configuration (Apache, Nginx, IIS, etc.) may be able to increase the maximum allowable size of request headers.
                     <ul>
@@ -285,6 +285,30 @@
                 </li>
                 <li><strong>Should be used cautiously</strong> — allowing larger request headers to be sent to the server could potentially be abused by bad actors.</li>
                 <li>This is likely not an option for vended services that use an illinois.edu subdomain, unless the vendor is willing to make this change.</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2 id="slide9">Solution: Setting the Cookie Domain</h2>
+            <ul>
+                <li>The previous solutions have downsides and are best used as a short-term fix. Clearing cookies is often inconvenient and even if done automatically, it will affect the analytics session data (effectively restarting the user session).</li>
+                <li><strong>Ideally, each site using GA4 would set the domain for its <code>_ga_</code> cookie to the site's own subdomain.</strong></li>
+                <li>Technically, this could temporarily makes things worse for users who rarely clear their cookies since this will generate a new cookie with the appropriate subdomain, but the original cookie may not expire for some time.</li>
+                <li>We'll go over some different ways of explictly setting the cookie's domain, depending on how the analytics were set up.</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2 id="slide10">Solution: Setting the Cookie Domain (GA4)</h2>
+            <ul>
+                <li>...</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2 id="slide11">Solution: Setting the Cookie Domain (GTM)</h2>
+            <ul>
+                <li>...</li>
             </ul>
         </div>
 
