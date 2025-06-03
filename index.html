@@ -264,7 +264,27 @@
         <div class="slide">
             <h2 id="slide7">Solution: Cookie Clean Up Script</h2>
             <ul>
-                <li>...</li>
+                <li>It is possible to automatically clear <code>_ga_</code> cookies using JavaScript. Permissions are such that a subdomain site can modify cookies set at the higher level ".illinois.edu" domain.</li>
+                <li>A script has been made available on GitHub: <a href="https://github.com/UIUCLibrary/ga-cookie-script">https://github.com/UIUCLibrary/ga-cookie-script</a>. Example usage where the script will clear a user's <code>_ga_</code> cookies if there are more than 20 accumulated:
+                    <ul>
+                        <li><code>&lt;script src="https://cdn.jsdelivr.net/gh/UIUCLibrary/ga-cookie-script@1.0.0/ga-cookie-script.min.js?max=20"&gt;&lt;/script&gt;</code></li>
+                    </ul>
+                </li>
+                <li>This can be effective when implemented on high traffic pages to 'catch' the most amount of users. For users currently experiencing 400 errors, you could try directing them to a page running the script. </li>
+                <li><em>Shout out to the campus web community for suggesting a script like this as a possibility.</em></li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2 id="slide8">Solution: Increasing Max Request Header Size </h2>
+            <ul>
+                <li>IT Pros that have access to a site's web server configuration (Apache, Nginx, IIS, etc.) may be able to increase the maximum allowable size of request headers.
+                    <ul>
+                        <li>Apache, for example, has the <code>LimitRequestFieldSize</code> directive.</li>
+                    </ul>
+                </li>
+                <li><strong>Should be used cautiously</strong> — allowing larger request headers to be sent to the server could potentially be abused by bad actors.</li>
+                <li>This is likely not an option for vended services that use an illinois.edu subdomain, unless the vendor is willing to make this change.</li>
             </ul>
         </div>
 
@@ -278,10 +298,6 @@
     </ilw-footer>
 
     <script>
-        /* temp fix */
-        const buttons = document.querySelector('ilw-accordion').shadowRoot.querySelector('.buttons');
-        buttons.style.display = 'none';
-
         if (new URLSearchParams(window.location.search).get('mode') === 'present') {
             // set the slide height to the screen height
             document.querySelectorAll('.slide').forEach(function (slide) {
