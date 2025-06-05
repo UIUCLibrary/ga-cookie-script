@@ -121,7 +121,7 @@
 
         <h1 class="sr-only">Optimizing Google Analytics Cookies at Illinois</h1>
 
-        <p style="position: relative; bottom: 20px;">This content was originally presented at the <a href="https://itproforum.illinois.edu/">IT Professionals Forum Spring 2025</a>. <em>Note to the presenter: a slide-like display can be started by adding <a href="?mode=present">?mode=present</a> to the end of the page URL. Set the zoom between 175% and 200% and use the up/down arrow keys to navigate through the slides.</em></p>
+        <p style="position: relative; bottom: 20px;">This content was originally presented at the <a href="https://itproforum.illinois.edu/eventdesc/spring-2025/day-2-315-pm/taming-a-cookie-monster-optimizing-google-analytics-cookies-at-illinois/">IT Professionals Forum Spring 2025</a>. <em>Note to the presenter: a slide-like display can be started by adding <a href="?mode=present">?mode=present</a> to the end of the page URL. Set the zoom between 175% and 200% and use the up/down arrow keys to navigate through the slides.</em></p>
 
         <ilw-accordion>
             <ilw-accordion-panel>
@@ -134,19 +134,20 @@
         </ilw-accordion>
         
         <div class="slide">
-            <h2 id="slide1">Introduction</h2>
+            <h2 id="slide0">Introduction</h2>
             <div class="col1">
                 <ul>
                     <li>Topic: <strong>Optimizing Google Analytics Cookies at Illinois</strong>
                         <ul>
                             <li>Addressing 400-level browser errors seen by end users which can prevent website access; in part, caused by an accumulation of cookies used by Google Analytics 4 (GA4)</li>
+                            <li><em>Shout out to the <a href="https://umarcomm.umn.edu/blog/2024/01/29/optimizing-cookie-domains-and-cleaning-google-tag-manager-streamlined-umnedu">UMN blog post</a> that helped bring this to our campus' attention</em></li>
                         </ul>
                     </li>
                     <li>Presenter: <strong>Dan Dalpiaz</strong>
                         <ul>
                             <li>Web Developer in the University Library at the University of Illinois Urbana-Champaign</li>
                             <li>Not an expert in Google Analytics itself, but...</li>
-                            <li>Have been tracking this particular issue for a while now</li>
+                            <li>Have been tracking a particular cookie issue for a while now</li>
                         </ul>
                     </li>
                 </ul>
@@ -162,18 +163,40 @@
         </div>
 
         <div class="slide">
-            <h2 id="slide2">Google Analytics 4 Cookies</h2>
+            <h2 id="slide1">Google Analytics 4 and Google Tag Manager</h2>
             <ul>
-                <li>Google Analytics uses a <a href="https://en.wikipedia.org/wiki/HTTP_cookie">browser cookie</a> to establish analytics sessions and track user activity.
+                <li><strong>Google Analytics 4</strong>
                     <ul>
-                        <li>GA4 uses cookies with names like: <code>_ga_&lt;TAG-ID&gt;</code>, e.g. <code>_ga_YKXZBYWM4X</code></li>
-                        <li>Each cookie is usually between 50-100 bytes in size.</li>
+                        <li>Google's latest version of their web analytics service, replaces Universal Analytics (UA).</li>
+                        <li>Within the GA4 platform, there are 'Accounts' which contain 'Properties' which contain 'Data Streams'
+                            <ul>
+                                <li>Typically only one Data Stream is used within a property when used for a website.</li>
+                                <li>Creating a Data Stream generates an associated 'Google Tag'. The tag created for a web Data Stream will have two tag IDs: a 'Measurement ID' (e.g. <code>G-5WMFPCS43H</code>) and a 'Tag ID' (e.g. <code>GT-WK5N5G5J</code>). Measurement IDs are used to send data to GA4, while Tag IDs are used to manage the tag itself.</li>
+                                <li>Other Google services can also use Google tags, but GA4 seems to be the most common on our campus.</li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
-                <li><strong>By default, GA4 will set the cookie's domain as the top-level ".illinois.edu" domain instead of the subdomain for the site in question. Cookies set with the top-level .illinois.edu domain will be included in the <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">request headers</a> for requests made to subdomain sites (example.illinois.edu).</strong>
+                <li><strong>Google Tag Manager</strong>
                     <ul>
-                        <li>This cookie configuration differs from the previous version of Google Analytics, 'Universal Analytics (UA)'.</li>
-                        <li>In theory, cookie domains could automatically be set to the approriate subdomain if all .illinois.edu sites were using a single data stream, but, this is not feasible for a decentralized setup.</li>
+                        <li>Google's tag management system that can be used to manage various tags, including GA4 tags.</li>
+                        <li>Not required to use for GA4, but can provide more options for managing tags and tracking.</li>
+                    </ul>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2 id="slide2">Google Analytics 4 Cookies</h2>
+            <ul>
+                <li>Google Tags use a <a href="https://en.wikipedia.org/wiki/HTTP_cookie">browser cookie</a> to establish sessions and track user activity.
+                    <ul>
+                        <li>GA4 tags use cookies with names like: <code>_ga_&lt;TAG-ID&gt;</code>, e.g. <code>_ga_5WMFPCS43H</code></li>
+                        <li>Each cookie is usually about 50-100 bytes in size.</li>
+                    </ul>
+                </li>
+                <li><strong>By default, GA4 tags will set the cookie's domain as the base ".illinois.edu" domain instead of the subdomain for the site in question. Cookies set with the .illinois.edu domain will be included in the <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">request headers</a> for requests made to subdomain sites (example.illinois.edu).</strong>
+                    <ul>
+                        <li>[[[In theory, cookie domains could automatically be set to the approriate subdomain if all .illinois.edu sites were using a single data stream, but, this is not feasible for a decentralized setup.]]]</li> 
                     </ul>
                 </li>
             </ul>
