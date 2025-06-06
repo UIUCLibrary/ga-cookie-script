@@ -68,12 +68,13 @@
     .slide figure {
         padding: 5px;
         border: 1px solid #ddd;
-        margin-top: 5px;
+        margin-top: 10px;
         background: var(--il-storm-lighter-4);
     }
     .slide figcaption {
         font-family: 'Source Sans';
         text-align: center;
+        padding: 3px;
     }
     .slide img {
         width: 100%;
@@ -130,8 +131,18 @@
             <ilw-accordion-panel>
                 <h2 slot="summary">Table of Contents</h3>
                 <ul>
-                    <li><a href="#slide1">Slide #1</a></li>
-                    <li><a href="#slide2">Slide #2</a></li>
+                    <li><a href="#slide0">Introduction</a></li>
+                    <li><a href="#slide1">Google Analytics 4 and Google Tag Manager</a></li>
+                    <li><a href="#slide2">Google Analytics 4 Cookies</a></li>
+                    <li><a href="#slide3">Cookie Accumulation and Browser Errors</a></li>
+                    <li><a href="#slide4">Who Can This Affect?</a></li>
+                    <li><a href="#slide5">Possible Solutions</a></li>
+                    <li><a href="#slide6">Solution: Clearing Browser Cookies</a></li>
+                    <li><a href="#slide7">Solution: Cookie Clean Up Script</a></li>
+                    <li><a href="#slide8">Solution: Increasing Max Request Header Size</a></li>
+                    <li><a href="#slide9">Solution: Setting the Cookie Domain</a></li>
+                    <li><a href="#slide10">Solution: Setting the Cookie Domain (GTM config)</a></li>
+                    <li><a href="#slide11">Solution: Setting the Cookie Domain (gtag config)</a></li>
                 </ul>
             </ilw-accordion-panel>
         </ilw-accordion>
@@ -333,23 +344,44 @@
             <h2 id="slide9">Solution: Setting the Cookie Domain</h2>
             <ul>
                 <li>The previous solutions have downsides and are best used as a short-term fix. Clearing cookies is often inconvenient and even if done automatically, it will affect the analytics session data (effectively restarting the user session).</li>
-                <li><strong>Sites using GA4 have the ability to set the domain for its <code>_ga_</code> cookie to the site's own subdomain.</strong></li>
-                <li>Technically, this could temporarily makes things worse for users who rarely clear their cookies since this will generate a new cookie with the appropriate subdomain, but the original cookie may not expire for some time.</li>
+                <li><strong>Sites using GA4 have the ability to set the domain for its <code>_ga_</code> cookie to the site's own subdomain.</strong> This would prevent the cookie from being included in requests to other subdomains.</li>
+                <li>Technically, this could temporarily makes things worse since this will generate a new cookie with the relevant subdomain, but the original cookie may not expire for some time.</li>
                 <li>We'll go over some different ways of explictly setting the cookie's domain, depending on how the analytics were set up.</li>
             </ul>
         </div>
 
         <div class="slide">
             <h2 id="slide10">Solution: Setting the Cookie Domain (GTM config)</h2>
-            <ul>
-                <li>...</li>
-            </ul>
+            <div class="col1">
+                <ul>
+                    <li>If you are using Google Tag Manager to manage your GA4 tags, you can set the cookie domain in the tag configuration:
+                        <ul>
+                            <li>In <a href="https://tagmanager.google.com/">Google Tag Manager</a>, locate the GA4 tag you want to modify.</li>
+                            <li>Edit the 'Tag Configuration' and add a new 'Configuration Parameter' with a name of <code>cookie_domain</code> and a value of the site's subdomain, e.g. <code>example.illinois.edu</code>.</li>
+                            <li>Save the changes and publish the container.</li>
+                        </ul>
+                    <li>See <a href="https://developers.google.com/tag-platform/security/guides/customize-cookies#tag-manager">Google's Tag Platform documentation</a> for more information.</li>
+                </ul>
+            </div>
+            <div class="col2">
+                <figure>
+                    <a href="images/tag-config.png">
+                        <img src="images/tag-config.png" alt="screenshot of the Google Tag Manager tag configuration with cookie_domain parameter">
+                    </a>
+                    <figcaption>Setting the cookie_domain parameter in Google Tag Manager</figcaption>
+                </figure>
+            </div>
         </div>
 
         <div class="slide">
             <h2 id="slide11">Solution: Setting the Cookie Domain (gtag config)</h2>
             <ul>
-                <li>...</li>
+                <li>If you are using Google Analytics without Google Tag Manager, configuration can be added to the existing JavaScript snippet:
+                    <ul>
+                        <li><code>gtag('config', 'TAG_ID', {'cookie_domain': 'example.illinois.edu'});</code></li>
+                    </ul>
+                </li>
+                <li>Alternatively, you could consider using Google Tag Manager to manage the GA4 tag instead. Steps to add an existing GA4 tag to GTM can be found on the <a href="https://support.google.com/tagmanager/answer/9442095?hl=en">Set up Google Analytics in Tag Manager</a> support page. After adding the GA4 tag to GTM and adding the cookie domain configuration as described in the previous slide, you can switch the site to use the GTM snippets instead of the gtag.js snippets.</li>
             </ul>
         </div>
 
