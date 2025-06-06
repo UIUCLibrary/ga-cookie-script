@@ -209,7 +209,7 @@
                             <li>Each cookie is usually about 50-100 bytes in size.</li>
                         </ul>
                     </li>
-                    <li><strong>By default, GA4 tags will set the cookie's domain as the base ".illinois.edu" domain and not the subdomain for the site in question.</strong> This default behavior is explained in <a href="https://developers.google.com/tag-platform/security/guides/customize-cookies">Google's Tag Platform documentation</a>.
+                    <li><strong>By default, GA4 tags will set the cookie's domain as the base ".illinois.edu" domain and not the subdomain for the site in question</strong> (reference: <a href="https://developers.google.com/tag-platform/security/guides/customize-cookies">Google's Tag Platform documentation</a>).
                         <ul>
                             <li>Cookies set with the .illinois.edu domain will be included in the <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">request headers</a> for requests made to any subdomain site (example.illinois.edu).</a></li>
                         </ul>
@@ -343,10 +343,13 @@
         <div class="slide">
             <h2 id="slide9">Solution: Setting the Cookie Domain</h2>
             <ul>
-                <li>The previous solutions have downsides and are best used as a short-term fix. Clearing cookies is often inconvenient and even if done automatically, it will affect the analytics session data (effectively restarting the user session).</li>
-                <li><strong>Sites using GA4 have the ability to set the domain for its <code>_ga_</code> cookie to the site's own subdomain.</strong> This would prevent the cookie from being included in requests to other subdomains.</li>
-                <li>Technically, this could temporarily makes things worse since this will generate a new cookie with the relevant subdomain, but the original cookie may not expire for some time.</li>
-                <li>We'll go over some different ways of explictly setting the cookie's domain, depending on how the analytics were set up.</li>
+                <li>The previous solutions have some downsides and are best used as a short-term fix. Clearing cookies is often inconvenient and even if done automatically, it will affect the analytics session data (effectively restarting the user session).</li>
+                <li><strong>Sites using GA4 have the ability to set the domain for its <code>_ga_</code> cookie to the site's own subdomain.</strong> This would prevent the cookie from being included in requests to other subdomains.
+                    <ul>
+                        <li>We'll go over some different ways of explictly setting the cookie's domain, depending on how the analytics were set up.</li>
+                        <li>Technically, this could temporarily makes things worse since this will generate a new cookie with the relevant subdomain, but the original cookie may not expire for some time.</li>
+                    </ul>
+                </li>
             </ul>
         </div>
 
@@ -383,6 +386,25 @@
                 </li>
                 <li>Alternatively, you could consider using Google Tag Manager to manage the GA4 tag instead. Steps to add an existing GA4 tag to GTM can be found on the <a href="https://support.google.com/tagmanager/answer/9442095?hl=en">Set up Google Analytics in Tag Manager</a> support page. After adding the GA4 tag to GTM and adding the cookie domain configuration as described in the previous slide, you can switch the site to use the GTM snippets instead of the gtag.js snippets.</li>
             </ul>
+        </div>
+
+        <div class="slide">
+            <h2 id="slide12">Thank You!</h2>
+            <div class="col1">
+                <ul>
+                    <li>Questions?</li>
+                    <li>Contact: <a href="mailto:dalpiaz1@illinois.edu">dalpiaz1@illinois.edu</a></li>
+                    <li>Campus-related Google Analytics information also available on the <a href="https://publish.illinois.edu/analytics/">WIGG Analytics website</a></li>
+                </ul>
+            </div>
+            <div class="col2">
+                <figure>
+                    <a href="images/cookie-monster.png">
+                        <img src="images/cookie-monster.png" alt="Cookie Monster from Sesame Street">
+                    </a>
+                    <figcaption>Cookie Monster from Sesame Street</figcaption>
+                </figure>
+            </div>
         </div>
 
     </div>
