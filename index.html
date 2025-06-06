@@ -79,6 +79,9 @@
         width: 100%;
         border: 1px solid #ddd;
     }
+    .slide code {
+        overflow-wrap: anywhere;
+    }
     @media (max-width: 900px) {
         .slide .col1, .slide .col2 {
             float: none;
@@ -121,7 +124,7 @@
 
         <h1 class="sr-only">Optimizing Google Analytics Cookies at Illinois</h1>
 
-        <p style="position: relative; bottom: 20px;">This content was originally presented at the <a href="https://itproforum.illinois.edu/eventdesc/spring-2025/day-2-315-pm/taming-a-cookie-monster-optimizing-google-analytics-cookies-at-illinois/">IT Professionals Forum Spring 2025</a>. <em>Note to the presenter: a slide-like display can be started by adding <a href="?mode=present">?mode=present</a> to the end of the page URL. Set the zoom between 175% and 200% and use the up/down arrow keys to navigate through the slides.</em></p>
+        <p style="position: relative; bottom: 20px;">This content was originally presented at a <a href="https://itproforum.illinois.edu/eventdesc/spring-2025/day-2-315-pm/taming-a-cookie-monster-optimizing-google-analytics-cookies-at-illinois/">session at the IT Professionals Forum Spring 2025</a>. <em>Note to the presenter: a slide-like display can be started by adding <a href="?mode=present">?mode=present</a> to the end of the page URL. Set the zoom between 175% and 200% and use the up/down arrow keys to navigate through the slides.</em></p>
 
         <ilw-accordion>
             <ilw-accordion-panel>
@@ -154,10 +157,10 @@
             </div>
             <div class="col2">
                 <figure>
-                    <a href="images/cookies.jpg">
-                        <img src="images/cookies.jpg" alt="baked cookies">
+                    <a href="images/ga.png">
+                        <img src="images/ga.png" alt="Google Analytics logo">
                     </a>
-                    <figcaption>The other, sweeter kind of cookies</figcaption>
+                    <figcaption>Google Analytics logo</figcaption>
                 </figure>
             </div>
         </div>
@@ -171,7 +174,7 @@
                         <li>Within the GA4 platform, there are 'Accounts' which contain 'Properties' which contain 'Data Streams'
                             <ul>
                                 <li>Typically only one Data Stream is used within a property when used for a website.</li>
-                                <li>Creating a Data Stream generates an associated 'Google Tag'. The tag created for a web Data Stream will have two tag IDs: a 'Measurement ID' (e.g. <code>G-5WMFPCS43H</code>) and a 'Tag ID' (e.g. <code>GT-WK5N5G5J</code>). Measurement IDs are used to send data to GA4, while Tag IDs are used to manage the tag itself.</li>
+                                <li>Creating a Data Stream generates an associated 'Google Tag'. The tag created for a web Data Stream will have two tag IDs: a 'Measurement ID' (e.g. <code>G-5WMFPCS43H</code>) and a 'Tag ID' (e.g. <code>GT-WK5N5G5J</code>).</li>
                                 <li>Other Google services can also use Google tags, but GA4 seems to be the most common on our campus.</li>
                             </ul>
                         </li>
@@ -187,19 +190,29 @@
 
         <div class="slide">
             <h2 id="slide2">Google Analytics 4 Cookies</h2>
-            <ul>
-                <li>Google Tags use a <a href="https://en.wikipedia.org/wiki/HTTP_cookie">browser cookie</a> to establish sessions and track user activity.
-                    <ul>
-                        <li>GA4 tags use cookies with names like: <code>_ga_&lt;TAG-ID&gt;</code>, e.g. <code>_ga_5WMFPCS43H</code></li>
-                        <li>Each cookie is usually about 50-100 bytes in size.</li>
-                    </ul>
-                </li>
-                <li><strong>By default, GA4 tags will set the cookie's domain as the base ".illinois.edu" domain instead of the subdomain for the site in question. Cookies set with the .illinois.edu domain will be included in the <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">request headers</a> for requests made to subdomain sites (example.illinois.edu).</strong>
-                    <ul>
-                        <li>[[[In theory, cookie domains could automatically be set to the approriate subdomain if all .illinois.edu sites were using a single data stream, but, this is not feasible for a decentralized setup.]]]</li> 
-                    </ul>
-                </li>
-            </ul>
+            <div class="col1">
+                <ul>
+                    <li>Google Tags use a <a href="https://en.wikipedia.org/wiki/HTTP_cookie">browser cookie</a> to establish sessions and track  activity.
+                        <ul>
+                            <li>GA4 tags use cookies with names like: <code>_ga_&lt;TAG-ID&gt;</code>, e.g. <code>_ga_5WMFPCS43H</code></li>
+                            <li>Each cookie is usually about 50-100 bytes in size.</li>
+                        </ul>
+                    </li>
+                    <li><strong>By default, GA4 tags will set the cookie's domain as the base ".illinois.edu" domain and not the subdomain for the site in question.</strong> This default behavior is explained in <a href="https://developers.google.com/tag-platform/security/guides/customize-cookies">Google's Tag Platform documentation</a>.
+                        <ul>
+                            <li>Cookies set with the .illinois.edu domain will be included in the <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">request headers</a> for requests made to any subdomain site (example.illinois.edu).</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col2">
+                <figure>
+                    <a href="images/cookies.jpg">
+                        <img src="images/cookies.jpg" alt="baked cookies">
+                    </a>
+                    <figcaption>The other, sweeter kind of cookies</figcaption>
+                </figure>
+            </div>
         </div>
 
         <div class="slide">
@@ -227,7 +240,7 @@
                 <ul>
                     <li>No individual user or campus website is completely immune to this issue. If certain conditions are met, any user visiting any website on the illinois.edu domain <em>could</em> run into this problem.
                         <ul>
-                            <li>Can happen on websites that aren't running Google Analytics</li>
+                            <li>Can happen on websites that aren't running Google Analytics or using any other Google tags</li>
                         </ul>
                     </li>
                     <li>This is most likely to be encountered by users who visit a large number of campus websites and do not clear their browser's cookies on a regular basis.</li>
@@ -248,14 +261,19 @@
             <ul>
                 <li><strong>Short-Term</strong>
                     <ul>
-                        <li>Help the user clear their browser's cookies</li>
-                        <li>Implement a cookie clean up script on your website</li>
-                        <li>Increase the maximum allowable size of request headers on the web server</li>
+                        <li>Clear the user's browser cookies (End User)</li>
+                        <li>Implement a cookie clean up script on your website (IT Pro)</li>
+                        <li>Increase the maximum allowable size of request headers on the web server (IT Pro)</li>
                     </ul>
                 </li>
                 <li><strong>Long-Term</strong>
                     <ul>
-                        <li>Manually set the GA cookie domain to the appropriate subdomain</li>
+                        <li>Setting the GA cookie domain to the relevant subdomain
+                            <ul>
+                                <li>Using Google Tag Manager configuration (GTM User)</li>
+                                <li>Using gtag.js configuration (IT Pro)</li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -301,7 +319,7 @@
         <div class="slide">
             <h2 id="slide8">Solution: Increasing Max Request Header Size</h2>
             <ul>
-                <li>IT Pros that have access to a site's web server configuration (Apache, Nginx, IIS, etc.) may be able to increase the maximum allowable size of request headers.
+                <li>IT Pros that have access to a site's web server configuration (Apache, Nginx, IIS, etc.) may be able to increase the maximum allowable size of request headers. Note, this will only help prevent user errors for a specific site.
                     <ul>
                         <li>Apache, for example, has the <code>LimitRequestFieldSize</code> directive.</li>
                     </ul>
@@ -315,21 +333,21 @@
             <h2 id="slide9">Solution: Setting the Cookie Domain</h2>
             <ul>
                 <li>The previous solutions have downsides and are best used as a short-term fix. Clearing cookies is often inconvenient and even if done automatically, it will affect the analytics session data (effectively restarting the user session).</li>
-                <li><strong>Ideally, each site using GA4 would set the domain for its <code>_ga_</code> cookie to the site's own subdomain.</strong></li>
+                <li><strong>Sites using GA4 have the ability to set the domain for its <code>_ga_</code> cookie to the site's own subdomain.</strong></li>
                 <li>Technically, this could temporarily makes things worse for users who rarely clear their cookies since this will generate a new cookie with the appropriate subdomain, but the original cookie may not expire for some time.</li>
                 <li>We'll go over some different ways of explictly setting the cookie's domain, depending on how the analytics were set up.</li>
             </ul>
         </div>
 
         <div class="slide">
-            <h2 id="slide10">Solution: Setting the Cookie Domain (GA4)</h2>
+            <h2 id="slide10">Solution: Setting the Cookie Domain (GTM config)</h2>
             <ul>
                 <li>...</li>
             </ul>
         </div>
 
         <div class="slide">
-            <h2 id="slide11">Solution: Setting the Cookie Domain (GTM)</h2>
+            <h2 id="slide11">Solution: Setting the Cookie Domain (gtag config)</h2>
             <ul>
                 <li>...</li>
             </ul>
