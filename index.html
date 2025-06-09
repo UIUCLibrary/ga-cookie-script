@@ -359,7 +359,7 @@
                 <ul>
                     <li>If you are using Google Tag Manager to manage your GA4 tags, you can set the cookie domain in the tag configuration:
                         <ul>
-                            <li>In <a href="https://tagmanager.google.com/">Google Tag Manager</a>, locate the GA4 tag you want to modify.</li>
+                            <li>In <a href="https://tagmanager.google.com/">Google Tag Manager</a>, locate the container and GA4 tag you want to modify.</li>
                             <li>Edit the 'Tag Configuration' and add a new 'Configuration Parameter' with a name of <code>cookie_domain</code> and a value of the site's subdomain, e.g. <code>example.illinois.edu</code>.</li>
                             <li>Save the changes and publish the container.</li>
                         </ul>
@@ -384,15 +384,15 @@
                         <li><code>gtag('config', 'TAG_ID', {'cookie_domain': 'example.illinois.edu'});</code></li>
                     </ul>
                 </li>
-                <li>Alternatively, you could consider using Google Tag Manager to manage the GA4 tag instead. Steps to add an existing GA4 tag to GTM can be found on the <a href="https://support.google.com/tagmanager/answer/9442095?hl=en">Set up Google Analytics in Tag Manager</a> support page. After adding the GA4 tag to GTM and adding the cookie domain configuration as described in the previous slide, you can switch the site to use the GTM snippets instead of the gtag.js snippets.</li>
+                <li>If you don't have access to edit the JavaScript snippet, you could consider using Google Tag Manager to manage the GA4 tag. Steps to add an existing GA4 tag to GTM can be found on the <a href="https://support.google.com/tagmanager/answer/9442095?hl=en">Set up Google Analytics in Tag Manager</a> support page. After adding the GA4 tag to GTM and adding the cookie domain configuration as described in the previous slide, you can switch the site to use the GTM snippets instead of the gtag.js snippet.</li>
+                <li>In all cases, after making changes, it is recommended to check that the cookie is being set correctly in the browser's developer tools and that analytics data is being collected as expected.</li>
             </ul>
         </div>
 
         <div class="slide">
-            <h2 id="slide12">Thank You!</h2>
+            <h2 id="slide12">Questions?</h2>
             <div class="col1">
                 <ul>
-                    <li>Questions?</li>
                     <li>Contact: <a href="mailto:dalpiaz1@illinois.edu">dalpiaz1@illinois.edu</a></li>
                     <li>Campus-related Google Analytics information also available on the <a href="https://publish.illinois.edu/analytics/">WIGG Analytics website</a></li>
                 </ul>
