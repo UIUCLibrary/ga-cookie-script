@@ -1,7 +1,7 @@
 
 # ga-cookie-script
 
-a small JavaScript file that can clean out accumulated cookies related to Google (Analytics) tags
+A small JavaScript file that can clean out accumulated cookies related to Google (Analytics) tags on the *.illinois.edu domain.
 
 ## Example Usage
 
