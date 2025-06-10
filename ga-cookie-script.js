@@ -4,7 +4,8 @@ let gaCookies = [];
 
 const scriptTag = document.currentScript;
 const urlParams = new URLSearchParams(scriptTag.src.split("?")[1]);
-const maxCookies = parseInt(urlParams.get("max")) || 30;
+const maxCookies = Math.max(parseInt(urlParams.get("max")) || 30, 30);
+
 
 cookies.forEach(cookie => {
     if (cookie.startsWith("_ga_")) {

@@ -317,9 +317,9 @@
             <h2 id="slide7">Solution: Cookie Clean Up Script</h2>
             <ul>
                 <li>It is possible to automatically clear <code>_ga_</code> cookies using JavaScript. Permissions are such that a subdomain site can modify cookies set at the higher level ".illinois.edu" domain.</li>
-                <li>A script has been made available on GitHub: <a href="https://github.com/UIUCLibrary/ga-cookie-script">https://github.com/UIUCLibrary/ga-cookie-script</a>. Example usage where the script will clear a user's <code>_ga_</code> cookies if there are more than 20 accumulated:
+                <li>A script has been made available on GitHub: <a href="https://github.com/UIUCLibrary/ga-cookie-script">https://github.com/UIUCLibrary/ga-cookie-script</a>. By default, the script will clear a user's <code>_ga_</code> cookies if there are more than 30 accumulated. A higher threshold can be set by passing a <code>max</code> parameter to the script, example below:</li>
                     <ul>
-                        <li><code>&lt;script src="https://cdn.jsdelivr.net/gh/UIUCLibrary/ga-cookie-script@1.0.0/ga-cookie-script.min.js?max=20"&gt;&lt;/script&gt;</code></li>
+                        <li><code>&lt;script src="https://cdn.jsdelivr.net/gh/UIUCLibrary/ga-cookie-script@1.0.1/ga-cookie-script.min.js?max=40"&gt;&lt;/script&gt;</code></li>
                     </ul>
                 </li>
                 <li>This can be effective when implemented on high traffic pages to 'catch' the most amount of users. For users currently experiencing 400 errors, you could try directing them to a page running the script. </li>
