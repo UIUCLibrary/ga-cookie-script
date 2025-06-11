@@ -138,8 +138,8 @@
                     <li><a href="#slide4">Who Can This Affect?</a></li>
                     <li><a href="#slide5">Possible Solutions</a></li>
                     <li><a href="#slide6">Solution: Clearing Browser Cookies</a></li>
-                    <li><a href="#slide7">Solution: Cookie Clean Up Script</a></li>
-                    <li><a href="#slide8">Solution: Increasing Max Request Header Size</a></li>
+                    <li><a href="#slide7">Solution: Increasing Max Request Header Size</a></li>
+                    <li><a href="#slide8">Solution: Cookie Clean Up Script</a></li>
                     <li><a href="#slide9">Solution: Setting the Cookie Domain</a></li>
                     <li><a href="#slide10">Solution: Setting the Cookie Domain (GTM config)</a></li>
                     <li><a href="#slide11">Solution: Setting the Cookie Domain (gtag config)</a></li>
@@ -272,17 +272,29 @@
             <ul>
                 <li><strong>Short-Term</strong>
                     <ul>
-                        <li>Clear the user's browser cookies (End User)</li>
-                        <li>Implement a cookie clean up script on your website (IT Pro)</li>
-                        <li>Increase the maximum allowable size of request headers on the web server (IT Pro)</li>
+                        <li>Clear the user's browser cookies (End User can implement)
+                            <ul>
+                                <li><em>Can help fix issues for an individual user</em></li>
+                            </ul>
+                        </li>
+                        <li>Increase the maximum allowable size of request headers on the web server (IT Pro can implement)
+                            <ul>
+                                <li><em>Can help prevent issues on individual sites</em></li>
+                            </ul>
+                        </li>
+                        <li>Implement a cookie clean up script on your website (IT Pro can implement)
+                            <ul>
+                                <li><em>Can help prevent issues for groups of users</em></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li><strong>Long-Term</strong>
                     <ul>
                         <li>Setting the GA cookie domain to the relevant subdomain
                             <ul>
-                                <li>Using Google Tag Manager configuration (GTM User)</li>
-                                <li>Using gtag.js configuration (IT Pro)</li>
+                                <li>Using Google Tag Manager configuration (GTM User can implement)</li>
+                                <li>Using gtag.js configuration (IT Pro can implement)</li>
                             </ul>
                         </li>
                     </ul>
@@ -314,7 +326,20 @@
         </div>
 
         <div class="slide">
-            <h2 id="slide7">Solution: Cookie Clean Up Script</h2>
+            <h2 id="slide7">Solution: Increasing Max Request Header Size</h2>
+            <ul>
+                <li>IT Pros that have access to a site's web server configuration (Apache, Nginx, IIS, etc.) may be able to increase the maximum allowable size of request headers. Note, this will only help prevent user errors for a specific site.
+                    <ul>
+                        <li>Apache, for example, has the <code>LimitRequestFieldSize</code> directive.</li>
+                    </ul>
+                </li>
+                <li><strong>Should be used cautiously</strong> — allowing larger request headers to be sent to the server could potentially be abused by bad actors.</li>
+                <li>This is likely not an option for vended services that use an illinois.edu subdomain, unless the vendor is willing to make this change.</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2 id="slide8">Solution: Cookie Clean Up Script</h2>
             <ul>
                 <li>It is possible to automatically clear <code>_ga_</code> cookies using JavaScript. Permissions are such that a subdomain site can modify cookies set at the higher level ".illinois.edu" domain.</li>
                 <li>A script has been made available on GitHub: <a href="https://github.com/UIUCLibrary/ga-cookie-script">https://github.com/UIUCLibrary/ga-cookie-script</a>. By default, the script will clear a user's <code>_ga_</code> cookies if there are more than 30 accumulated. A higher threshold can be set by passing a <code>max</code> parameter to the script, example below:</li>
@@ -328,22 +353,9 @@
         </div>
 
         <div class="slide">
-            <h2 id="slide8">Solution: Increasing Max Request Header Size</h2>
-            <ul>
-                <li>IT Pros that have access to a site's web server configuration (Apache, Nginx, IIS, etc.) may be able to increase the maximum allowable size of request headers. Note, this will only help prevent user errors for a specific site.
-                    <ul>
-                        <li>Apache, for example, has the <code>LimitRequestFieldSize</code> directive.</li>
-                    </ul>
-                </li>
-                <li><strong>Should be used cautiously</strong> — allowing larger request headers to be sent to the server could potentially be abused by bad actors.</li>
-                <li>This is likely not an option for vended services that use an illinois.edu subdomain, unless the vendor is willing to make this change.</li>
-            </ul>
-        </div>
-
-        <div class="slide">
             <h2 id="slide9">Solution: Setting the Cookie Domain</h2>
             <ul>
-                <li>The previous solutions have some downsides and are best used as a short-term fix. Clearing cookies is often inconvenient and even if done automatically, it will affect the analytics session data (effectively restarting the user session).</li>
+                <li>The previous solutions have some downsides and are best used as a short-term fix. Clearing cookies is often inconvenient and even if done automatically, is not ideal.</li>
                 <li><strong>Sites using GA4 have the ability to set the domain for its <code>_ga_</code> cookie to the site's own subdomain.</strong> This would prevent the cookie from being included in requests to other subdomains.
                     <ul>
                         <li>We'll go over some different ways of explictly setting the cookie's domain, depending on how the analytics were set up.</li>
